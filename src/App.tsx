@@ -116,7 +116,7 @@ function Hero() {
       <div className="hero-coordinates"><span>INDIA // BHOPAL</span><span>SCROLL TO ENTER <b>↓</b></span></div>
     </div>
     <div className="identity-glass" data-reveal>
-      <div className="identity-photo"><img src="/portrait.jpg" alt="Portrait of Krityam Singh in a blue kurta" /></div>
+      <div className="identity-photo"><img src="/portrait-clear.webp" alt="Portrait of Krityam Singh in a blue kurta" /></div>
       <div className="identity-bottom"><div><small>THE BUILDER</small><strong>KRITYAM SINGH</strong></div><span>01 / 01</span></div>
       <span className="identity-corner top-left" /><span className="identity-corner bottom-right" />
     </div>
