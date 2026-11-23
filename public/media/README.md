@@ -1,10 +1,12 @@
 # PROJECT STARK Media
 
-The website's scroll-controlled helmet-forging interlude loads these assets:
+The cinematic interlude before the project gallery now uses:
 
-- `stark-forging.mp4` — optimized H.264 film clip (not checked in)
-- `stark-forging-poster.jpg` — still preview frame (not checked in)
+- `stark-forging.mp4` — optimized H.264 MP4 (51.6 s, 960×540)
+- `stark-forging-poster.jpg` — preview poster
 
-Add both files here to activate the video in `src/ForgeInterlude.tsx`.
+Both files are committed and referenced by `src/ForgeInterlude.tsx`. The clip is **Iron Man film footage used as creative inspiration**, not a video of the portfolio author's work.
 
-The original Iron Man movie is copyrighted. Only publish footage you have rights or permission to use; the film is not the portfolio creator's own project footage.
+To distribute publicly, confirm that you have appropriate permission or a legal basis to use the copyrighted footage.
+
+The profile portrait is at `public/portrait.webp` and displayed by `src/App.tsx`.
