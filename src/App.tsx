@@ -1,8 +1,6 @@
-import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties, type PointerEvent } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from 'react';
 import ForgeInterlude from './ForgeInterlude';
 import { projects, type PortfolioProject } from './projects';
-
-const Hologram = lazy(() => import('./Hologram'));
 
 function useEntranceAnimations() {
   useEffect(() => {
@@ -98,11 +96,7 @@ function Hero() {
   }, []);
   return <section className="mythic-hero" id="home" ref={hero}>
     <div className="hero-noise" aria-hidden="true" />
-    <div className="hero-portal">
-      <Suspense fallback={<div className="portal-loading">INITIALIZING PORTAL...</div>}>
-        <Hologram />
-      </Suspense>
-    </div>
+    <div className="hero-portrait" aria-hidden="true"><img src="/portrait.webp" alt="" fetchPriority="high" /></div>
     <div className="hero-vignette" aria-hidden="true" />
     <div className="hero-orbit-label orbit-label-top">INTELLIGENCE / CREATION / EXECUTION</div>
     <div className="hero-copy">
@@ -115,13 +109,8 @@ function Hero() {
       </div>
       <div className="hero-coordinates"><span>INDIA // BHOPAL</span><span>SCROLL TO ENTER <b>↓</b></span></div>
     </div>
-    <div className="identity-glass" data-reveal>
-      <div className="identity-photo"><img src="/portrait.webp" alt="Portrait of Krityam Singh in a blue kurta" /></div>
-      <div className="identity-bottom"><div><small>THE BUILDER</small><strong>KRITYAM SINGH</strong></div><span>01 / 01</span></div>
-      <span className="identity-corner top-left" /><span className="identity-corner bottom-right" />
-    </div>
     <div className="hero-side-label">EST. 2026 <span>✦</span> CONSTANTLY EVOLVING</div>
-    <div className="hero-bottom-line"><span>PORTFOLIO / 001</span><span>DRAG THE UNIVERSE WITH YOUR MOUSE</span><span>MORE BELOW ↓</span></div>
+    <div className="hero-bottom-line"><span>PORTFOLIO / 001</span><span>KRITYAM SINGH / CREATIVE ENGINEER</span><span>MORE BELOW ↓</span></div>
   </section>;
 }
 
