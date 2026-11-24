@@ -79,45 +79,9 @@ function ProgressMeter() {
 }
 
 function Hero() {
-  const [posterAvailable, setPosterAvailable] = useState(false);
-  useEffect(() => {
-    const poster = new Image();
-    poster.onload = () => setPosterAvailable(true);
-    poster.src = '/landing-poster.webp';
-    return () => { poster.onload = null; };
-  }, []);
-  const hero = useRef<HTMLElement>(null);
-  useEffect(() => {
-    const el = hero.current;
-    if (!el) return;
-    let raf = 0;
-    const scroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        raf = 0;
-        el.style.setProperty('--hero-scroll', String(Math.min(1, window.scrollY / Math.max(1, el.clientHeight))));
-      });
-    };
-    window.addEventListener('scroll', scroll, {passive:true});
-    return () => {window.removeEventListener('scroll',scroll);cancelAnimationFrame(raf);};
-  }, []);
-  return <section className={"mythic-hero" + (posterAvailable ? " poster-hero" : "")} id="home" ref={hero}>
-    <div className="hero-noise" aria-hidden="true" />
-    <div className="hero-portrait" aria-hidden="true"><img src={posterAvailable ? "/landing-poster.webp" : "/portrait.webp"} alt="" fetchPriority="high" /></div>
-    <div className="hero-vignette" aria-hidden="true" />
-    <div className="hero-orbit-label orbit-label-top">INTELLIGENCE / CREATION / EXECUTION</div>
-    <div className="hero-copy">
-      <div className="hero-eyebrow"><span className="line-glyph" /> WELCOME TO MY UNIVERSE <span className="mono">/ 2026</span></div>
-      <h1><span className="title-row">IDEAS</span><span className="title-row italic">BECOME</span><span className="title-row">REALITY<span className="dot">.</span></span></h1>
-      <p className="hero-summary">A world of engineered ideas, intelligent systems, and visual experiments. Built by <strong>Krityam Singh.</strong></p>
-      <div className="hero-buttons">
-        <a href="#projects" className="light-button">EXPLORE MY WORK <span>↗</span></a>
-        <a href="#about" className="ghost-button">THE PERSON BEHIND IT <span>↓</span></a>
-      </div>
-      <div className="hero-coordinates"><span>INDIA // BHOPAL</span><span>SCROLL TO ENTER <b>↓</b></span></div>
-    </div>
-    <div className="hero-side-label">EST. 2026 <span>✦</span> CONSTANTLY EVOLVING</div>
-    <div className="hero-bottom-line"><span>PORTFOLIO / 001</span><span>KRITYAM SINGH / CREATIVE ENGINEER</span><span>MORE BELOW ↓</span></div>
+  return <section className="landing-poster" id="home" aria-label="Krityam Singh — portfolio">
+    <h1 className="landing-visually-hidden">Krityam Singh</h1>
+    <img src="/landing-poster.webp" alt="Krityam Singh — red cinematic portrait poster" fetchPriority="high" />
   </section>;
 }
 
