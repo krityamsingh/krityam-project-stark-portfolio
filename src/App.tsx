@@ -79,9 +79,50 @@ function ProgressMeter() {
 }
 
 function Hero() {
-  return <section className="landing-poster" id="home" aria-label="Krityam Singh — portfolio">
-    <h1 className="landing-visually-hidden">Krityam Singh</h1>
-    <img src="/landing-poster.webp" alt="Krityam Singh — red cinematic portrait poster" fetchPriority="high" />
+  const section = useRef<HTMLElement>(null);
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    let active = true;
+    const preload = (src: string) => new Promise<void>((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve();
+      img.onerror = reject;
+      img.src = src;
+    });
+    Promise.all([preload('/landing-crossed.webp'), preload('/landing-open.webp')])
+      .then(() => { if (active) setReady(true); })
+      .catch(() => {});
+    return () => { active = false; };
+  }, []);
+  useEffect(() => {
+    const el = section.current;
+    if (!el || !ready) return;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const stage = el.firstElementChild as HTMLElement | null;
+      if (!stage) return;
+      const distance = Math.max(1, el.offsetHeight - stage.offsetHeight);
+      const p = Math.min(1, Math.max(0, -el.getBoundingClientRect().top / distance));
+      const t = Math.min(1, Math.max(0, (p - .08) / .76));
+      el.style.setProperty('--pose-progress', String(t * t * (3 - 2 * t)));
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      cancelAnimationFrame(frame);
+    };
+  }, [ready]);
+  return <section ref={section} className={'landing-poster' + (ready ? ' landing-poster--motion' : '')} id="home" aria-label="Krityam Singh — portfolio">
+    {ready ? <div className="landing-pose-stage">
+      <h1 className="landing-visually-hidden">Krityam Singh</h1>
+      <img className="landing-pose-closed" src="/landing-crossed.webp" alt="Krityam Singh in a dark suit with crossed arms" fetchPriority="high" />
+      <img className="landing-pose-open" src="/landing-open.webp" alt="" aria-hidden="true" />
+    </div> : <><h1 className="landing-visually-hidden">Krityam Singh</h1><img src="/landing-poster.webp" alt="Krityam Singh — portrait poster" fetchPriority="high" /></>}
   </section>;
 }
 
