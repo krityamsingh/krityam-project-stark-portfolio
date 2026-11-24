@@ -79,6 +79,13 @@ function ProgressMeter() {
 }
 
 function Hero() {
+  const [posterAvailable, setPosterAvailable] = useState(false);
+  useEffect(() => {
+    const poster = new Image();
+    poster.onload = () => setPosterAvailable(true);
+    poster.src = '/landing-poster.webp';
+    return () => { poster.onload = null; };
+  }, []);
   const hero = useRef<HTMLElement>(null);
   useEffect(() => {
     const el = hero.current;
@@ -94,9 +101,9 @@ function Hero() {
     window.addEventListener('scroll', scroll, {passive:true});
     return () => {window.removeEventListener('scroll',scroll);cancelAnimationFrame(raf);};
   }, []);
-  return <section className="mythic-hero" id="home" ref={hero}>
+  return <section className={"mythic-hero" + (posterAvailable ? " poster-hero" : "")} id="home" ref={hero}>
     <div className="hero-noise" aria-hidden="true" />
-    <div className="hero-portrait" aria-hidden="true"><img src="/portrait.webp" alt="" fetchPriority="high" /></div>
+    <div className="hero-portrait" aria-hidden="true"><img src={posterAvailable ? "/landing-poster.webp" : "/portrait.webp"} alt="" fetchPriority="high" /></div>
     <div className="hero-vignette" aria-hidden="true" />
     <div className="hero-orbit-label orbit-label-top">INTELLIGENCE / CREATION / EXECUTION</div>
     <div className="hero-copy">
